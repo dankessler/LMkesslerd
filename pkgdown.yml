@@ -1,0 +1,11 @@
+pandoc: 3.1.11
+pkgdown: 2.1.3
+pkgdown_sha: ~
+articles:
+  articles/empirical-coverage: empirical-coverage.html
+  inference-demo: inference-demo.html
+  LMkesslerd: LMkesslerd.html
+last_built: 2025-10-29T14:26Z
+urls:
+  reference: https://dankessler.github.io/LMkesslerd/reference
+  article: https://dankessler.github.io/LMkesslerd/articles
