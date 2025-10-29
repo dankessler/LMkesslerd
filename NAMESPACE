@@ -1,0 +1,5 @@
+export(make_CI)
+export(find_beta)
+export(find_betaH)
+export(compute_F_stat)
+export(compute_F_stat_quadratic)
