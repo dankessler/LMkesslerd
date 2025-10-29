@@ -1,0 +1,48 @@
+---
+title: "empirical-coverage"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(LMkesslerd)
+set.seed(42)
+```
+
+# Simulation Study: Empirical Coverage of Confidence Intervals
+
+We simulate data from a linear model and check how often the confidence intervals constructed by `make_CI` contain the true value. This demonstrates that the intervals have the correct coverage probability.
+
+```{r}
+# Parameters
+n_sim <- 1000
+n <- 50
+beta <- c(2, 1, -1)
+sigma <- 1
+alpha_levels <- c(0.05, 0.01)
+
+# Storage for results
+results <- matrix(NA, nrow = n_sim, ncol = length(alpha_levels))
+colnames(results) <- paste0("alpha_", alpha_levels)
+
+for (sim in 1:n_sim) {
+  X <- cbind(1, rnorm(n), rnorm(n))
+  y <- X %*% beta + rnorm(n, sd = sigma)
+  gamma <- c(0, 1, 0)  # Test coverage for beta_2
+  for (j in seq_along(alpha_levels)) {
+    ci <- make_CI(y, X, alpha = alpha_levels[j], gamma = gamma)
+    # True value for beta_2 is 1
+    results[sim, j] <- (1 >= ci[1]) & (1 <= ci[2])
+  }
+}
+
+empirical_coverage <- colMeans(results)
+data.frame(alpha = alpha_levels, nominal_coverage = 1 - alpha_levels, empirical_coverage)
+```
+
+The empirical coverage should be close to the nominal coverage for each confidence level.

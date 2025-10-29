@@ -1,0 +1,80 @@
+---
+title: "inference-demo"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{inference-demo}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(LMkesslerd)
+```
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+# Simulate Data
+Suppose we have a simple linear model with two predictors:
+
+```{r}
+n <- 100
+X <- cbind(1, rnorm(n), rnorm(n))  # Intercept, X1, X2
+beta <- c(2, 1, -1)
+sigma <- 1
+y <- X %*% beta + rnorm(n, sd = sigma)
+```
+
+# OLS Estimation
+Estimate the regression coefficients using `find_beta`:
+
+```{r}
+beta_hat <- find_beta(y, X)
+beta_hat
+```
+
+# Confidence Interval for a Linear Combination
+Construct a 95% confidence interval for $\beta_2$ (the coefficient of X1):
+
+```{r}
+gamma <- c(0, 1, 0)  # Selects beta_2
+ci_beta2 <- make_CI(y, X, alpha = 0.05, gamma = gamma)
+ci_beta2
+```
+
+# Constrained Estimation
+Suppose we want to estimate the coefficients under the constraint $\beta_2 + \beta_3 = 0$:
+
+```{r}
+C <- matrix(c(0, 1, 1), nrow = 1)  # Constraint: beta_2 + beta_3 = 0
+d <- 0
+beta_hat_H <- find_betaH(y, X, C, d)
+beta_hat_H
+```
+
+# F-test for Linear Restrictions (RSS method)
+Test the null hypothesis $H_0: \beta_2 + \beta_3 = 0$ using the F-test based on RSS:
+
+```{r}
+f_rss <- f_test_RSS(y, X, C, d)
+f_rss
+```
+
+# F-test for Linear Restrictions (Quadratic form)
+Alternatively, use the quadratic form for the same test:
+
+```{r}
+f_quad <- f_test_quad(y, X, C, d)
+f_quad
+```
