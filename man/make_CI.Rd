@@ -11,7 +11,7 @@ make_CI(y, X, alpha, gamma, sigma2 = NULL)
 
 \item{X}{Design matrix}
 
-\item{alpha}{Significance level (e.g., 0.05 for 95% CI)}
+\item{alpha}{Significance level (e.g., 0.05 for 95\% CI)}
 
 \item{gamma}{Vector specifying the linear combination}
 
