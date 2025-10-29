@@ -2,7 +2,7 @@
 ##'
 ##' @param y Response vector
 ##' @param X Design matrix
-##' @param alpha Significance level (e.g., 0.05 for 95% CI)
+##' @param alpha Significance level (e.g., 0.05 for 95\% CI)
 ##' @param gamma Vector specifying the linear combination
 ##' @param sigma2 Optional known variance. If not provided, uses t-distribution
 ##' @return Numeric vector of length 2: lower and upper confidence interval bounds
