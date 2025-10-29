@@ -98,7 +98,7 @@ find_betaH <- function(y, X, C, d) {
 ##' d <- 0
 ##' # compute_F_stat(y, X, C, d)
 ##' @export
-compute_F_stat <- function(y, X, C, d) {
+f_test_RSS <- function(y, X, C, d) {
   n <- nrow(X)
   p <- ncol(X)
   q <- nrow(C)
@@ -136,7 +136,7 @@ compute_F_stat <- function(y, X, C, d) {
 ##' d <- 0
 ##' # compute_F_stat_quadratic(y, X, C, d)
 ##' @export
-compute_F_stat_quadratic <- function(y, X, C, d) {
+f_test_quad <- function(y, X, C, d) {
   n <- nrow(X)
   p <- ncol(X)
   q <- nrow(C)
